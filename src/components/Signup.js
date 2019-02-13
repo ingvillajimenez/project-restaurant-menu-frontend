@@ -9,7 +9,7 @@ class Signup extends React.Component {
     handleSignup = (e) => {
         e.preventDefault();
 
-        const API_URL = 'http://localhost:3001/api/v1';
+        const API_URL = 'https://restaurant-menu-backend.herokuapp.com/api/v1';
 
         fetch(`${API_URL}/auth/signup`, {
             method: 'POST',
