@@ -34,7 +34,13 @@ class Login extends React.Component {
                 localStorage.setItem('token', data.token);
 
                 const url = window.decodeURIComponent(this.props.location.search);
-                this.props.history.push('/' + url.split('/')[1]);
+
+                if(typeof url.split('/')[1] !== 'undefined') {
+                    this.props.history.push('/' + url.split('/')[1]);
+                } else {
+                    this.props.history.push('/');
+                }
+                
             } else {
                 this.setState({
                     error: {

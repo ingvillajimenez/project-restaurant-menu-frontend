@@ -6,6 +6,13 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 class Signup extends React.Component {
+    state = {
+        error: {
+            status: false,
+            message: ''
+        }
+    }
+
     handleSignup = (e) => {
         e.preventDefault();
 
@@ -24,9 +31,17 @@ class Signup extends React.Component {
             })
         })
         .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            this.props.history.push('/')
+        .then(res => {
+            if(typeof res.data !== 'undefined'){
+                this.props.history.push('/login');
+            } else {
+                this.setState({
+                    error: {
+                        status: true,
+                        message: res.message
+                    }
+                })
+            }
         })
         .catch(error => alert(error));
     }
@@ -57,7 +72,7 @@ class Signup extends React.Component {
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control name='password' type="password" placeholder="Password" />
                             </Form.Group>
-    
+                            {this.state.error.status && <p>{ this.state.error.message }</p>}
                             <Button variant="primary" type="submit">
                                 Submit
                             </Button>
